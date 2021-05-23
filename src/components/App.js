@@ -2,22 +2,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {fetchPosts} from '../actions/posts';
-import { PostsList , Navbar} from './';
+import { Navbar, Home, Page404, Login} from './';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route,Switch } from 'react-router-dom';
 
-//Dummy Component
-const Login = () => (
-  <div>Login</div>
-);
-
-const SignUp = () => (
-  <div>SignUp</div>
-);
-
-const Home = () => (
-  <div>Home</div>
-);
 
 
 class App extends React.Component {
@@ -35,22 +23,15 @@ class App extends React.Component {
       <Router>
         <div>
         <Navbar />
-        {/*<PostsList posts={posts} />*/}
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/signup">Signup</Link>
-          </li>
-        </ul>
+      <Switch>
+        <Route exact={true} path="/" render={(props) => {
+          return <Home {...props} posts={posts}/>
+        }}/>
+        <Route path="/login" component={Login} />
+        {/*<Route path="/signup" component={SignUp}/>*/}
+        <Route component={Page404}/>
+      </Switch>
 
-        <Route exact={true} path="/" component={Home}/>
-        <Route path="/login" component={Login}/>
-        <Route path="/signup" component={SignUp}/>
         </div>
       </Router>
       
