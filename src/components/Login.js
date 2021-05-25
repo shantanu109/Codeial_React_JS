@@ -39,18 +39,18 @@ class Login extends Component {
   };
   render() {
 
-    //const {error,inProgress} = this.props.auth;
+    const {error, inProgress} = this.props.auth;
 
     return (
       <form className="login-form">
         <span className="login-signup-header">Login</span>
-        {/* {error && <div className="alert error-dialog">{error}</div>} */}
+        {error && <div className="alert error-dailog">{error}</div>}
         <div className="field">
           <input
             type="email"
             placeholder="Email"
             required
-            //ref={this.emailInputRef}
+            ref={this.emailInputRef}
             onChange={this.handleEmailChange}
             value={this.state.email}
           />
@@ -60,14 +60,16 @@ class Login extends Component {
             type="password"
             placeholder="Password"
             required
-            //ref={this.passwordInputRef}
+            ref={this.passwordInputRef}
             onChange={this.handlePasswordChange}
             value={this.state.password}
           />
         </div>
         <div className="field">
-          {/* <button onClick={this.handleFormSubmit} disabled={inProgress}>Log In</button> */}
-          <button onClick={this.handleFormSubmit} >Log In</button>
+          {inProgress ?
+          <button onClick={this.handleFormSubmit} disabled={inProgress}>Logging in...</button>:
+          <button onClick={this.handleFormSubmit} disabled={inProgress}>Log In</button>
+          }
         </div>
       </form>
     );
