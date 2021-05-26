@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { login } from '../actions/auth';
+import { clearAuthState, login } from '../actions/auth';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -13,6 +14,11 @@ class Login extends Component {
       password: '',
     };
   }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearAuthState())
+  }
+  
 
   handleEmailChange = (e) => {
     this.setState({
@@ -37,9 +43,15 @@ class Login extends Component {
       this.props.dispatch(login(email, password));
     }
   };
+
+
   render() {
 
-    const {error, inProgress} = this.props.auth;
+    const {error, inProgress, isLoggedIn} = this.props.auth;
+
+    if (isLoggedIn){
+      return <Redirect to="/" />
+    }
 
     return (
       <form className="login-form">
