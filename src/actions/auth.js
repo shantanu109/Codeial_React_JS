@@ -1,5 +1,14 @@
 import { APIURLS } from '../helpers/urls';
-import { LOGIN_START, LOGIN_FAILED, LOGIN_SUCCESS,AUTHENTICATE_USER,LOG_OUT,SIGNUP_START,SIGNUP_FAILED,SIGNUP_SUCCESS } from './actionTypes';
+import {
+  LOGIN_START,
+  LOGIN_FAILED,
+  LOGIN_SUCCESS,
+  AUTHENTICATE_USER,
+  LOG_OUT,
+  SIGNUP_START,
+  SIGNUP_FAILED,
+  SIGNUP_SUCCESS,
+} from './actionTypes';
 import { getFormBody } from '../helpers/utils';
 
 export function startLogin() {
@@ -40,14 +49,14 @@ export function login(email, password) {
 
         if (data.success) {
           //dispatch action to save user
-          dispatch(loginSuccess(data.data.user))
+          localStorage.setItem('token', data.data.token);
+          dispatch(loginSuccess(data.data.user));
           return;
         }
         dispatch(loginFailed(data.message));
       });
   };
 }
-
 
 export function authenticateUser(user) {
   return {
@@ -110,4 +119,3 @@ export function signupSuccessful(user) {
     user,
   };
 }
-
