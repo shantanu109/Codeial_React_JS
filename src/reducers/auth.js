@@ -39,13 +39,13 @@ export default function auth(state = initialAuthState, action) {
       return {
         ...state,
         user: action.user,
-        isLoggedin: true,
+        isLoggedIn: true,
       };
     case LOG_OUT:
       return {
         ...state,
         user: {},
-        isLoggedin: false,
+        isLoggedIn: false,
       };
 
     default:

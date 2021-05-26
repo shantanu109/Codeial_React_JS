@@ -58,18 +58,7 @@ export function login(email, password) {
   };
 }
 
-export function authenticateUser(user) {
-  return {
-    type: AUTHENTICATE_USER,
-    user,
-  };
-}
 
-export function logoutUser() {
-  return {
-    type: LOG_OUT,
-  };
-}
 
 export function signup(email, password, confirmPassword, name) {
   return (dispatch) => {
@@ -117,5 +106,18 @@ export function signupSuccessful(user) {
   return {
     type: SIGNUP_SUCCESS,
     user,
+  };
+}
+
+export function authenticateUser(user) {
+  return {
+    type: AUTHENTICATE_USER,
+    user,
+  };
+}
+
+export function logoutUser() {
+  return {
+    type: LOG_OUT,
   };
 }
