@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/posts';
-import { Navbar, Home, Page404, Login, Settings } from './';
+import { Navbar, Home, Page404, Login, Settings,UserProfile } from './';
 import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router,
@@ -13,6 +13,7 @@ import {
 import Signup from './Signup';
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
+import {getAuthTokenFromLocalStorage} from '../helpers/utils'
 
 //const Settings = () => <div>Setting</div>;
 
@@ -46,7 +47,7 @@ class App extends React.Component {
 
     this.props.dispatch(fetchPosts());
 
-    const token = localStorage.getItem('token');
+    const token = getAuthTokenFromLocalStorage();
 
     if (token) {
       const user = jwtDecode(token);
@@ -82,6 +83,11 @@ class App extends React.Component {
             <PrivateRoute
               path="/settings"
               component={Settings}
+              isLoggedIn={auth.isLoggedIn}
+            />
+            <PrivateRoute
+              path="/user/"
+              component={UserProfile}
               isLoggedIn={auth.isLoggedIn}
             />
             <Route component={Page404} />
