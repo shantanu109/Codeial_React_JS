@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/posts';
-import { Navbar, Home, Page404, Login } from './';
+import { Navbar, Home, Page404, Login, Settings } from './';
 import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router,
@@ -10,11 +10,11 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import Signup from '../helpers/Signup';
+import Signup from './Signup';
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
 
-const Settings = () => <div>Setting</div>;
+//const Settings = () => <div>Setting</div>;
 
 const PrivateRoute = (privateRouteProps) => {
   const { isLoggedIn, path, component: Component } = privateRouteProps;
@@ -23,7 +23,18 @@ const PrivateRoute = (privateRouteProps) => {
     <Route
       path={path}
       render={(props) => {
-        return isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />;
+        return isLoggedIn ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: {
+                from: props.location,
+              },
+            }}
+          />
+        );
       }}
     />
   );
@@ -69,7 +80,7 @@ class App extends React.Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <PrivateRoute
-              path= "/settings"
+              path="/settings"
               component={Settings}
               isLoggedIn={auth.isLoggedIn}
             />
