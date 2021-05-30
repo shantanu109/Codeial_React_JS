@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PostsList } from './';
+import { PostsList} from './';
 
 class Home extends Component {
     render() {

@@ -14,6 +14,7 @@ import Signup from './Signup';
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
 import {getAuthTokenFromLocalStorage} from '../helpers/utils'
+//import { fetchUserFriends } from '../actions/friends';
 
 //const Settings = () => <div>Setting</div>;
 
@@ -61,6 +62,8 @@ class App extends React.Component {
           name: user.name,
         })
       );
+
+      //this.props.dispatch(fetchUserFriends());
     }
   }
 
@@ -102,6 +105,7 @@ function mapStateToProps(state) {
   return {
     posts: state.posts,
     auth: state.auth,
+    //friends:state.friends
   };
 }
 
