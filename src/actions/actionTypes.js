@@ -32,3 +32,5 @@ export const FETCH_USER_PROFILE = "FETCH_USER_PROFILE";
 
 export const ADD_POST = 'ADD_POST';
 
+export const ADD_COMMENT = "ADD_COMMENT";
+
