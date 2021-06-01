@@ -27,6 +27,7 @@ code {
 }
 .no-btn {
   border: none;
+  background:white;
 }
 .no-btn:focus {
   border: none;

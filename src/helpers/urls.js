@@ -12,5 +12,7 @@ export const APIURLS = {
     //addFriend : (userId) => `${API_ROOT}/friendship/create-friendship?user_Id=${userId}`
 
     createPost: () => `${API_ROOT}/posts/create`,
-    createComment : () => `${API_ROOT}/posts/createComment`
+    createComment : () => `${API_ROOT}/posts/createComment`,
+
+    toggleLike : (id, likeType) => `${API_ROOT}/posts/toggleLike?likeable_id=${id}&likeable_type=${likeType}`
 }

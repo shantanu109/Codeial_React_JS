@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/posts';
-import { Navbar, Home, Page404, Login, Settings,UserProfile } from './';
+import { Navbar, Home, Page404, Login, Settings,UserProfile,Signup } from './';
 import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router,
@@ -10,7 +10,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import Signup from './Signup';
+
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
 import {getAuthTokenFromLocalStorage} from '../helpers/utils'
