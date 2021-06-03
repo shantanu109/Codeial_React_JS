@@ -69,6 +69,7 @@ class App extends React.Component {
 
   render() {
     const { posts, auth } = this.props;
+    const {isLoggedIn} = this.props.auth
     return (
       <Router>
         <div>
@@ -78,7 +79,7 @@ class App extends React.Component {
               exact={true}
               path="/"
               render={(props) => {
-                return <Home {...props} posts={posts} />;
+                return <Home {...props} posts={posts} isLoggedIn={isLoggedIn}/>;
               }}
             />
             <Route path="/login" component={Login} />
