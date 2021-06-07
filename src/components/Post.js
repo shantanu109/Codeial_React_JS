@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Comment } from './';
+// import { Comment } from './index.js';
 import { addLike, createComment } from '../actions/posts';
+import Comment from './Comment';
 
 class Post extends Component {
   constructor(props) {

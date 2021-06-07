@@ -1,21 +1,24 @@
-// import React from 'react';
-// import { FriendsListItem } from './';
+import React from 'react';
+// import { FriendsListItem } from './index.js';
+import FriendsListItem from './FriendsListItem';
 
-// const FriendsList = (props) => {
-//   return (
-//     <div className="friends-list">
-//       <div className="header">Friends</div>
+const FriendsList = (props) => {
+  return (
+    <div className="friends-list">
+      <div className="header">Friends</div>
 
-//       {props.friends && props.friends.length === 0 && (
-//         <div className="no-friends">No friends found!</div>
-//       )}
+      {props.friends && props.friends.length === 0 && (
+        <div className="no-friends">No friends found!</div>
+      )}
 
-//       {props.friends &&
-//         props.friends.map((friend) => (
-//           <FriendsListItem friend={friend.to_user} key={friend._id} />
-//         ))}
-//     </div>
-//   );
-// };
+    
+      {props.friends &&
+        props.friends.map((friend) => (
+          <FriendsListItem name={friend.name} id={friend._id} key={friend._id} />
+          
+        ))}
+    </div>
+  );
+};
 
-// export default FriendsList;
+export default FriendsList;

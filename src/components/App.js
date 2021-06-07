@@ -1,7 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/posts';
-import { Navbar, Home, Page404, Login, Settings,UserProfile,Signup } from './';
+// import {
+//   Navbar,
+//   Home,
+//   Page404,
+//   Login,
+//   Settings,
+//   UserProfile,
+//   Signup,
+// } from './index.js';
+import Navbar from './Navbar';
+import Home from './Home';
+import Page404 from './Page404';
+import Login from './Login';
+import Settings from './Settings';
+import UserProfile from './UserProfile';
+import Signup from './Signup';
 import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router,
@@ -13,8 +28,8 @@ import {
 
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
-import {getAuthTokenFromLocalStorage} from '../helpers/utils'
-//import { fetchUserFriends } from '../actions/friends';
+import { getAuthTokenFromLocalStorage } from '../helpers/utils';
+import { fetchUserFriends } from '../actions/friends';
 
 //const Settings = () => <div>Setting</div>;
 
@@ -48,6 +63,9 @@ class App extends React.Component {
 
     this.props.dispatch(fetchPosts());
 
+    //const {user} = this.props.auth
+    //this.props.dispatch(fetchFriends(user._id));
+
     const token = getAuthTokenFromLocalStorage();
 
     if (token) {
@@ -62,14 +80,14 @@ class App extends React.Component {
           name: user.name,
         })
       );
-
-      //this.props.dispatch(fetchUserFriends());
+      //const users = this.props.auth.user
+      this.props.dispatch(fetchUserFriends(user._id));
     }
   }
 
   render() {
-    const { posts, auth } = this.props;
-    const {isLoggedIn} = this.props.auth
+    const { posts, auth, friends } = this.props;
+    const { isLoggedIn } = this.props.auth;
     return (
       <Router>
         <div>
@@ -79,7 +97,14 @@ class App extends React.Component {
               exact={true}
               path="/"
               render={(props) => {
-                return <Home {...props} posts={posts} isLoggedIn={isLoggedIn}/>;
+                return (
+                  <Home
+                    {...props}
+                    posts={posts}
+                    friends={friends}
+                    isLoggedIn={isLoggedIn}
+                  />
+                );
               }}
             />
             <Route path="/login" component={Login} />
@@ -106,7 +131,7 @@ function mapStateToProps(state) {
   return {
     posts: state.posts,
     auth: state.auth,
-    //friends:state.friends
+    friends: state.friends,
   };
 }
 

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { CreatePost,Post } from './index';
+// import { CreatePost,Post } from './index.js';
+import CreatePost from './CreatePost';
+import Post from './Post'
 
 class PostsList extends Component {
   render() {

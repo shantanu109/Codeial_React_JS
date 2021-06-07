@@ -1,112 +1,117 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUserProfile } from '../actions/profile';
-// import { APIURLS } from '../helpers/urls';
-// import {addFriend} from '../actions/friends';
-
+import { APIURLS } from '../helpers/urls';
+import {addFriend} from '../actions/friends';
+import { getFormBody } from '../helpers/utils';
 
 class UserProfile extends Component {
+  constructor(props){
 
-  // constructor(props){
+    super(props);
 
-  //   super(props);
+    this.state = {
+      success:null,
+      error:null
+    }
 
-  //   this.state = {
-  //     success:null,
-  //     error:null
-  //   }
-
-
-  // }
+  }
   componentDidMount() {
     const { match } = this.props;
 
     if (match.params.userId) {
       // dispatch an action
 
-      this.props.dispatch(fetchUserProfile(match.params.userId))
+      this.props.dispatch(fetchUserProfile(match.params.userId));
     }
   }
 
-  componentDidUpdate(prevProps){
+  componentDidUpdate(prevProps) {
     const {
-      match: {params: prevParams},
+      match: { params: prevParams },
     } = prevProps;
 
     const {
-      match: {params: currentParams}
+      match: { params: currentParams },
     } = this.props;
 
-    if (prevParams && currentParams && prevParams.userId !== currentParams.userId){
-      this.props.dispatch(fetchUserProfile(currentParams.userId))
+    if (
+      prevParams &&
+      currentParams &&
+      prevParams.userId !== currentParams.userId
+    ) {
+      this.props.dispatch(fetchUserProfile(currentParams.userId));
     }
   }
 
-  // checkIfUserIsAFriend = () => {
-  //   console.log('this.props',this.props);
-  //   const {match, friends} = this.props;
-  //   const userId = match.params.userId;
+  checkIfUserIsAFriend = () => {
+    console.log('this.props', this.props);
+    const { match, friends } = this.props;
+    const userId = match.params.userId;
 
-  //   const index = friends.map(friend => friend.to_user._id).indexOf(userId);
+    const index = friends.indexOf(userId);
 
-  //   if (index !== -1){
-  //     return true
-  //   }
+    if (index !== -1) {
+      return true;
+    }
 
-  //   return false
-  // }
+    return false;
+  };
 
-  // handleAddFriendClick = async () => {
+  handleAddFriendClick = async () => {
 
-  //   const userId = this.props.match.params.userId;
-  //   const url = APIURLS.addFriend(userId);
+    const { user } = this.props.auth;
+//Check
+    const userId = this.props.match.params.userId;
+    const url = APIURLS.addFriend(userId);
 
-  //   const options = {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/x-www-form-urlencoded',
-  //       //'Authorization': `Bearer ${getAuthTokenFromLocalStorage()}`
-  //     },
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        //'Authorization': `Bearer ${getAuthTokenFromLocalStorage()}`
+      },
+      body: getFormBody({
+        id: user._id
+      }),
 
-  //   }
-  //   const response = await fetch(url , options);
+    }
+    const response = await fetch(url , options);
 
-  //   const data = await response.json();
+    const data = await response.json();
 
-  //   if (data.success){
-  //     this.setState({
-  //       success: true
-  //     });
+    if (data.success){
+      this.setState({
+        success: true
+      });
 
-  //     this.props.dispatch(addFriend(data.data.friendship));
-  //   }
-  //   else{
-  //     this.setState({
-  //       success:null,
-  //       error:data.message
-  //     })
-  //   }
-  // }
+      this.props.dispatch(addFriend(data.data.friendship));
+    }
+    else{
+      this.setState({
+        success:null,
+        error:data.message
+      })
+    }
+  }
 
   render() {
     const {
-      match: { params },profile
+      match: { params },
+      profile,
     } = this.props;
-    
-    const user= profile.user
 
-    if (profile.inProgress){
-      return <h1>Loading!!</h1>
+    const user = profile.user;
+
+    if (profile.inProgress) {
+      return <h1>Loading!!</h1>;
     }
 
-    //const isUserAFriend = this.checkIfUserIsAFriend();
+    const isUserAFriend = this.checkIfUserIsAFriend();
 
-    // const {success,error} = this.state;
+    const {success,error} = this.state;
 
-
-    
     console.log('this.props', params);
-    
 
     return (
       <div className="settings">
@@ -128,26 +133,27 @@ class UserProfile extends Component {
         </div>
 
         <div className="btn-grp">
-          <button className="button save-btn">Add Friend</button> 
-          
-{/*           
+          {!isUserAFriend ? (
+            <button className="button save-btn" onClick={this.handleAddFriendClick}>Add Friend</button>
+          ) : (
+            <button className="button save-btn">Remove Friend</button>
+          )}
+
+                    
           {success && <div className="alert success-dialog">Friend Added Successfully</div>}
-          {success && <div className="alert error-dialog">{error}</div>} */}
+          {success && <div className="alert error-dialog">{error}</div>}
         </div>
-
-
       </div>
     );
   }
 }
 
-function mapStateToProps({profile,friends}){
+function mapStateToProps({ profile, friends,auth }) {
   return {
     profile,
-    //friends
-    
-    
-  }
+    friends,
+    auth
+  };
 }
 
 export default connect(mapStateToProps)(UserProfile);
