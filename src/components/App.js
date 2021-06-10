@@ -88,6 +88,7 @@ class App extends React.Component {
   render() {
     const { posts, auth, friends } = this.props;
     const { isLoggedIn } = this.props.auth;
+    const {user} = this.props.auth
     return (
       <Router>
         <div>
@@ -114,11 +115,17 @@ class App extends React.Component {
               component={Settings}
               isLoggedIn={auth.isLoggedIn}
             />
+            <PrivateRoute 
+              path={`/user/${user._id}`}
+              component={Settings}
+              isLoggedIn={auth.isLoggedIn}
+            />
             <PrivateRoute
               path="/user/:userId"
               component={UserProfile}
               isLoggedIn={auth.isLoggedIn}
             />
+            
             <Route component={Page404} />
           </Switch>
         </div>
@@ -132,6 +139,7 @@ function mapStateToProps(state) {
     posts: state.posts,
     auth: state.auth,
     friends: state.friends,
+    profile:state.profile
   };
 }
 
