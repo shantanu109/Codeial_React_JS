@@ -12,8 +12,8 @@ export default function friends(state = defaultProfileState, action) {
 
         return [...action.friends]
 
-    // case REMOVE_FRIEND:
-    //     return [...action.friends]
+    case REMOVE_FRIEND:
+        return [...action.friends]
 
     default:
       return state;
