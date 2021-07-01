@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { Comment } from './index.js';
-import { addLike, createComment } from '../actions/posts';
+import { addLike, createComment,deletePost } from '../actions/posts';
 import Comment from './Comment';
 
 class Post extends Component {
@@ -41,6 +41,14 @@ class Post extends Component {
 
     this.props.dispatch(addLike(post._id, 'Post', user._id));
   };
+
+  handleDeletePost = () => {
+    const {post} = this.props;
+    const { user } = this.props.auth;
+
+    this.props.dispatch(deletePost(post._id,user._id))
+
+  }
 
   render() {
     const { post } = this.props;
@@ -86,6 +94,15 @@ class Post extends Component {
               />
               <span>{post.comments.length}</span>
             </div>
+            {user._id && user._id == post.user._id?
+              <button className="post-like no-btn" onClick={this.handleDeletePost}>
+              
+              <img src="https://image.flaticon.com/icons/png/512/1214/1214428.png" alt="like post" />
+  
+          </button>: []
+
+            }
+            
           </div>
           <div className="post-comment-box">
             <input

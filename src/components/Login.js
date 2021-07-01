@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { clearAuthState, login } from '../actions/auth';
+import { clearAuthState, login ,loginGoogle} from '../actions/auth';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+
 
 class Login extends Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class Login extends Component {
     }
   };
 
+  
 
   render() {
 
@@ -83,6 +85,7 @@ class Login extends Component {
           <button onClick={this.handleFormSubmit} disabled={inProgress}>Logging in...</button>:
           <button onClick={this.handleFormSubmit} disabled={inProgress}>Log In</button>
           }
+          
         </div>
       </form>
     );

@@ -10,7 +10,7 @@ class Home extends Component {
         
         return (
             <div className="home">
-                <PostsList posts={posts}/>
+                <PostsList posts={posts} isLoggedIn={isLoggedIn}/>
                 {isLoggedIn && <FriendsList friends={friends} />}
                 {isLoggedIn && <Chat />}
             </div>

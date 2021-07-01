@@ -17,5 +17,7 @@ export const APIURLS = {
 
     toggleLike : (id, likeType) => `${API_ROOT}/posts/toggleLike?likeable_id=${id}&likeable_type=${likeType}`,
 
-    userSearch: (searchText) => `${API_ROOT}/users/search/${searchText}`
+    userSearch: (searchText) => `${API_ROOT}/users/search/${searchText}`,
+    deletePost: (postId) => `${API_ROOT}/posts/destroy/${postId}`,
+    
 }

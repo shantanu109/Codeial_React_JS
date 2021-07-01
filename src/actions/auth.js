@@ -14,6 +14,7 @@ import {
 } from './actionTypes';
 import { getFormBody } from '../helpers/utils';
 //import {getAuthTokenFromLocalStorage} from '../helpers/utils';
+import { fetchUserFriends } from '../actions/friends';
 
 export function startLogin() {
   return {
@@ -55,12 +56,14 @@ export function login(email, password) {
           //dispatch action to save user
           localStorage.setItem('token', data.data.token);
           dispatch(loginSuccess(data.data.user));
+          dispatch(fetchUserFriends(data.data.user._id));
           return;
         }
         dispatch(loginFailed(data.message));
       });
   };
 }
+
 
 
 

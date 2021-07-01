@@ -1,4 +1,10 @@
-import { ADD_POST, UPDATE_POSTS,ADD_COMMENT, UPDATE_POST_LIKE } from './actionTypes';
+import {
+  ADD_POST,
+  UPDATE_POSTS,
+  ADD_COMMENT,
+  UPDATE_POST_LIKE,
+  DELETE_POSTS
+} from './actionTypes';
 import { APIURLS } from '../helpers/urls';
 import { getFormBody } from '../helpers/utils';
 
@@ -25,7 +31,12 @@ export function updataPosts(posts) {
     posts,
   };
 }
-
+export function deletedPosts(posts) {
+  return {
+    type: DELETE_POSTS,
+    posts,
+  };
+}
 export function addPost(post) {
   return {
     type: ADD_POST,
@@ -33,7 +44,7 @@ export function addPost(post) {
   };
 }
 
-export function createPost(content,userId) {
+export function createPost(content, userId) {
   return (dispatch) => {
     const url = APIURLS.createPost();
 
@@ -42,101 +53,102 @@ export function createPost(content,userId) {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: getFormBody({content,id: userId}),
+      body: getFormBody({ content, id: userId }),
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('DATA',data);
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('DATA', data);
 
-        if (data.success){
-            dispatch(addPost(data.data.post));
-
+        if (data.success) {
+          dispatch(addPost(data.data.post));
         }
-    })
-
+      });
   };
 }
 
-export function createComment(content, postId,userId) {
-    return (dispatch) => {
-      const url = APIURLS.createComment();
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          //Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
-        },
-        body: getFormBody({ content, post_id: postId , id: userId}),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            console.log('COMMENT',data.data.comment)
-            dispatch(addComment(data.data.comment, postId));
-          }
-        });
-    };
-  }
-  
-  export function addComment(comment, postId) {
-    return {
-      type: ADD_COMMENT,
-      comment,
-      postId,
-    };
+export function deletePost(postId, userId) {
+  return (dispatch) => {
+    const url = APIURLS.deletePost(postId);
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: getFormBody({ id: userId }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('DATA', data);
+        if (data.success) {
+          dispatch(deletedPosts(data.posts));
+        }
+      });
+  };
 }
 
+export function createComment(content, postId, userId) {
+  return (dispatch) => {
+    const url = APIURLS.createComment();
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        //Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+      },
+      body: getFormBody({ content, post_id: postId, id: userId }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          console.log('COMMENT', data.data.comment);
+          dispatch(addComment(data.data.comment, postId));
+        }
+      });
+  };
+}
+
+export function addComment(comment, postId) {
+  return {
+    type: ADD_COMMENT,
+    comment,
+    postId,
+  };
+}
 
 //This id can be postId or commentId
 //This likeType can either be a post or a comment because we are using the same API
 
-export function addLike(id, likeType,userId){
-
+export function addLike(id, likeType, userId) {
   return (dispatch) => {
-    const url = APIURLS.toggleLike(id,likeType);
+    const url = APIURLS.toggleLike(id, likeType);
 
     fetch(url, {
-
-
       method: 'POST',
       headers: {
-
         'Content-Type': 'application/x-www-form-urlencoded',
-          //Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+        //Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
       body: getFormBody({
-        id: userId
+        id: userId,
       }),
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log('LIKE DATA',data);
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('LIKE DATA', data);
 
-      if (data.success){
-        dispatch(addLikeToStore(id,userId,data.data.likes));
-        
-      }
-    })
-
-  }
-
+        if (data.success) {
+          dispatch(addLikeToStore(id, userId, data.data.likes));
+        }
+      });
+  };
 }
 
-
-export function addLikeToStore(postId, userId,likes){
-
+export function addLikeToStore(postId, userId, likes) {
   return {
     type: UPDATE_POST_LIKE,
     postId,
     userId,
-    likes
-  }
+    likes,
+  };
 }
-
-
-
-
-
-
-
-  

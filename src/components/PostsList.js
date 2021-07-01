@@ -9,9 +9,10 @@ class PostsList extends Component {
   render() {
     //array
     const { posts } = this.props;
+    const {isLoggedIn} = this.props
     return (
       <div className="posts-list">
-        <CreatePost />
+        {isLoggedIn && <CreatePost />}
         {posts.map((post) => (
           <Post post={post} key={post._id} />
         ))}
