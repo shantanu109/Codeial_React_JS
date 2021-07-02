@@ -54,6 +54,7 @@ class Post extends Component {
     const { post } = this.props;
     const { comment } = this.state;
     const { user } = this.props.auth;
+    const {dispatch} = this.props;
 
     const isPostLikedByUser = post.likes.includes(user._id);
 
@@ -115,7 +116,7 @@ class Post extends Component {
 
           <div className="post-comments-list">
             {post.comments.map((comment) => (
-              <Comment comment={comment} key={comment._id} postId={post._id} />
+              <Comment comment={comment} userId={user._id} key={comment._id} postId={post._id} commentId={comment._id} dispatch={dispatch}/>
             ))}
           </div>
         </div>
@@ -131,6 +132,7 @@ Post.propTypes = {
 function mapStateToProps({ auth, post }) {
   return {
     auth,
+    
   };
 }
 

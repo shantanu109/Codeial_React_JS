@@ -86,6 +86,26 @@ export function deletePost(postId, userId) {
       });
   };
 }
+export function deleteComment(commentId, userId) {
+  return (dispatch) => {
+    const url = APIURLS.deleteComment(commentId);
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: getFormBody({ id: userId }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('DATA', data);
+        if (data.success) {
+          dispatch(deletedPosts(data.posts));
+        }
+      });
+  };
+}
 
 export function createComment(content, postId, userId) {
   return (dispatch) => {

@@ -19,5 +19,6 @@ export const APIURLS = {
 
     userSearch: (searchText) => `${API_ROOT}/users/search/${searchText}`,
     deletePost: (postId) => `${API_ROOT}/posts/destroy/${postId}`,
+    deleteComment: (commentId) => `${API_ROOT}/posts/destroycomment/${commentId}`
     
 }
