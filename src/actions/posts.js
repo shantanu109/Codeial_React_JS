@@ -3,7 +3,8 @@ import {
   UPDATE_POSTS,
   ADD_COMMENT,
   UPDATE_POST_LIKE,
-  DELETE_POSTS
+  DELETE_POSTS,
+  UPDATE_COMMENT_LIKE,
 } from './actionTypes';
 import { APIURLS } from '../helpers/urls';
 import { getFormBody } from '../helpers/utils';
@@ -139,7 +140,7 @@ export function addComment(comment, postId) {
 //This id can be postId or commentId
 //This likeType can either be a post or a comment because we are using the same API
 
-export function addLike(id, likeType, userId) {
+export function addLike(id, likeType, userId,postId) {
   return (dispatch) => {
     const url = APIURLS.toggleLike(id, likeType);
 
@@ -151,14 +152,19 @@ export function addLike(id, likeType, userId) {
       },
       body: getFormBody({
         id: userId,
+        post_id:postId
       }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log('LIKE DATA', data);
 
-        if (data.success) {
+        if ((data.success) && likeType=='Post') {
           dispatch(addLikeToStore(id, userId, data.data.likes));
+        }
+        else if ((data.success) && likeType=='Comment'){
+          dispatch(updataPosts(data.posts));
+
         }
       });
   };
@@ -170,5 +176,15 @@ export function addLikeToStore(postId, userId, likes) {
     postId,
     userId,
     likes,
+  };
+}
+
+export function addCommentLikeToStore(commentId, userId, likes,postId) {
+  return {
+    type: UPDATE_COMMENT_LIKE,
+    commentId,
+    userId,
+    likes,
+    postId
   };
 }
