@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { clearAuthState, login ,loginGoogle} from '../actions/auth';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import GoogleLogin from 'react-google-login';
+
 
 
 class Login extends Component {
@@ -45,6 +47,13 @@ class Login extends Component {
     }
   };
 
+  responseGoogle = (response)=>{
+    console.log(response);
+    console.log(response.profileObj);
+    
+    this.props.dispatch(login(response.profileObj.email,response.profileObj.googleId))
+  }
+
   
 
   render() {
@@ -57,6 +66,7 @@ class Login extends Component {
     }
 
     return (
+      <div>
       <form className="login-form">
         <span className="login-signup-header">Login</span>
         {error && <div className="alert error-dailog">{error}</div>}
@@ -88,6 +98,17 @@ class Login extends Component {
           
         </div>
       </form>
+      <div style={{marginLeft:'46vw'}}>
+      <GoogleLogin
+        clientId="856518495899-eebbk7k67frq3389d2jeevhejt5haa7h.apps.googleusercontent.com"
+        buttonText="Login"
+        onSuccess={this.responseGoogle}
+        onFailure={this.responseGoogle}
+        cookiePolicy={'single_host_origin'}
+        
+      />
+      </div>
+      </div>
     );
   }
 }

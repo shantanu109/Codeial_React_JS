@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { startSingup, signup ,clearAuthState} from '../actions/auth';
 import { Redirect } from 'react-router-dom';
+import sha256 from 'crypto-js/sha256';
+import hmacSHA512 from 'crypto-js/hmac-sha512';
+import Base64 from 'crypto-js/enc-base64';
+import GoogleLogin from 'react-google-login';
 
 class Signup extends Component {
   constructor(props) {
@@ -34,6 +38,14 @@ class Signup extends Component {
     }
   };
 
+  responseGoogle = (response)=>{
+    console.log(response);
+    console.log(response.profileObj);
+    
+    this.props.dispatch(signup(response.profileObj.email,response.profileObj.googleId,response.profileObj.googleId,response.profileObj.givenName))
+  }
+
+
   render() {
 
     const { inProgress, error ,isLoggedIn} = this.props.auth;
@@ -42,6 +54,7 @@ class Signup extends Component {
       return <Redirect to="/" />
     }
     return (
+      <div>
       <form className="login-form">
         <span className="login-signup-header"> Signup</span>
         {error && <div className="alert error-dailog">{error}</div>}
@@ -85,6 +98,17 @@ class Signup extends Component {
           </button>
         </div>
       </form>
+      <div style={{marginLeft:'46vw'}}>
+      <GoogleLogin
+        clientId="856518495899-eebbk7k67frq3389d2jeevhejt5haa7h.apps.googleusercontent.com"
+        buttonText="Login"
+        onSuccess={this.responseGoogle}
+        onFailure={this.responseGoogle}
+        cookiePolicy={'single_host_origin'}
+        
+      />
+      </div>
+      </div>
     );
   }
 }
