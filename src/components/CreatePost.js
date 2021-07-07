@@ -9,14 +9,21 @@ class CreatePost extends Component {
       content: '',
     };
   }
+  
 
   handleOnClick = () => {
       //dispatch an action
       const {user} = this.props.auth;
       this.props.dispatch(createPost(this.state.content,user._id))
+      this.setState({
+        content:''
+      })
+
+      
   }
 
   handleChange = (e) => {
+    
       this.setState({
           content: e.target.value
       })
