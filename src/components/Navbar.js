@@ -4,6 +4,12 @@ import React from 'react';
 import { logoutUser } from '../actions/auth';
 
 import { searchUsers } from '../actions/search';
+import SearchIcon from '@material-ui/icons/Search';
+import HomeIcon from '@material-ui/icons/Home';
+import FlagIcon from '@material-ui/icons/Flag';
+import SubscriptionsOutlinedIcon from '@material-ui/icons/SubscriptionsOutlined';
+import StorefrontOutlinedIcon from '@material-ui/icons/StorefrontOutlined';
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 
 class Navbar extends React.Component {
   logOut = () => {
@@ -22,22 +28,27 @@ class Navbar extends React.Component {
     const { auth, results } = this.props;
 
     return (
-      <nav className="nav">
-        <div className="left-div">
+      
+      <nav className="header">
+        <div className="header__left" style={{display:'flex',justifyContent:'space-evenly'}}>
           <Link to="/">
             <img
-              src="http://ninjasfiles.s3.amazonaws.com/0000000000003454.png"
+            // http://ninjasfiles.s3.amazonaws.com/0000000000003454.png
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1200px-Facebook_f_logo_%282019%29.svg.png"
               alt="logo"
+              style={{height:'45px'}}
+
             />
           </Link>
-        </div>
-        <div className="search-container">
-          <img
+        
+        <div className="header__input">
+          {/* <img
             className="search-icon"
             src="https://image.flaticon.com/icons/svg/483/483356.svg"
             alt="search-icon"
-          />
-          <input placeholder="Search" onChange={this.handleSearch} />
+          /> */}
+          <SearchIcon/>
+          <input placeholder="Search" onChange={this.handleSearch} style={{border:'none',backgroundColor:'transparent',outlineWidth:'0',width:'500px'}}/>
           {results.length > 0 && (
             <div className="search-results">
               <ul>
@@ -56,7 +67,26 @@ class Navbar extends React.Component {
             </div>
           )}
         </div>
-        <div className="right-nav">
+        </div>
+        {/* <div className="header__middle">
+          <div className="header__option header__option--active">
+            <HomeIcon fontSize="large"/>
+          </div>
+          <div className="header__option">
+            <FlagIcon fontSize="large"/>
+          </div> */}
+          {/* <div className="header__option">
+            <SubscriptionsOutlinedIcon fontSize="large"/>
+          </div>
+          <div className="header__option">
+            <StorefrontOutlinedIcon fontSize="large"/>
+          </div>
+          <div className="header__option">
+            <SupervisedUserCircleIcon fontSize="large"/>
+          </div> */}
+        {/* </div> */}
+        <div className="header__right">
+        <div className="header__info">
           {auth.isLoggedIn && (
             <div className="user">
               <Link to="/settings">
@@ -64,29 +94,32 @@ class Navbar extends React.Component {
                   src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
                   alt="user-dp"
                   id="user-dp"
+                  style={{marginLeft:'0px'}}
                 />
               </Link>
-              <span>{auth.user.name}</span>
+              <span style={{color:'gray',marginLeft:'10px',fontWeight:'bolder'}}>{auth.user.name}</span>
             </div>
           )}
 
-          <div className="nav-links">
+          <div className="nav-links" >
             <ul>
               {!auth.isLoggedIn && (
                 <li>
-                  <Link to="/login">Login</Link>
+                  <Link to="/login" style={{color:'gray',marginLeft:'10px',fontWeight:'bolder'}}>Login</Link>
                 </li>
               )}
-              {auth.isLoggedIn && <li onClick={this.logOut}>Logout</li>}
+              {auth.isLoggedIn && <li onClick={this.logOut} style={{color:'gray',marginLeft:'0px',fontWeight:'bolder'}}>Logout</li>}
               {!auth.isLoggedIn && (
                 <li>
-                  <Link to="/signup">Register</Link>
+                  <Link to="/signup" style={{color:'gray',marginLeft:'10px',fontWeight:'bolder'}} >Register</Link>
                 </li>
               )}
             </ul>
           </div>
         </div>
+        </div>
       </nav>
+      
     );
   }
 }

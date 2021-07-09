@@ -19,7 +19,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #eceffa;
+  background: #f1f2f5;
   
 }
 code {
@@ -99,12 +99,13 @@ code {
   font-size: 16px;
   line-height: 22px;
   color: #424242;
-  margin-top: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .post-actions {
   padding: 5px;
   display: flex;
-  border: 1px solid #e0e0e0;
+  border: 1px solid lightgray;
   padding: 5px 10px;
   font-weight: normal;
   font-size: 14px;
@@ -112,9 +113,15 @@ code {
   color: #616161;
   border-right: none;
   border-left: none;
+  border-bottom: ;
+  cursor: pointer;
+  /* justify-content: space-evenly; */
+  margin-bottom: 10px;
+  
 }
 .post-actions img {
-  height: 18px;
+  height: 22px;
+  
 }
 .post-actions img:hover {
   cursor: pointer;
@@ -128,9 +135,16 @@ code {
   display: flex;
   align-items: center;
 }
+.post-delete-icon {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  
+}
 .post-like span,
 .post-comments-icon span {
-  margin-left: 7px;
+  margin-left: 4px;
+  color:#616161
 }
 .post-comment-box {
   padding: 10px 10px;
@@ -153,7 +167,7 @@ code {
   position: relative;
 }
 .post-comment-item {
-  background: #eceffa;
+  background: #f1f2f5;
   border-radius: 4px;
   padding: 10px;
   margin-bottom: 14px;
@@ -277,12 +291,14 @@ nav .nav-links ul li:hover {
   flex-grow: 1;
   border-radius: 0 0 3px 3px;
   position: absolute;
-  width: 100%;
-  top: 40px;
+  width:500px;
+  top: 65px;
   border: 1px solid #e0e0e0;
   z-index: 100;
   max-height: 452px;
   overflow: scroll;
+  border-radius: 15px;
+  box-shadow: 0px 5px 7px rgba(0,0,0,0.2);
    /* display: none;  */
 }
 .search-results ul {
@@ -319,14 +335,18 @@ nav .nav-links ul li:hover {
 }
 .friends-list {
   background: #fff;
-  margin-left: 50px;
-  flex-grow: 0.2;
+  margin-left: 20px;
+  flex-grow: 0.1;
   height: 50vh;
   box-sizing: border-box;
   margin-top: 20px;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   overflow-y: scroll;
+  flex-shrink: 0.2;
+  border-radius: 15px;
+  box-shadow: 0px 5px 7px rgba(0,0,0,0.2);
+  
 }
 .friends-list .header {
   border-bottom: 1px solid #e0e0e0;
@@ -334,6 +354,7 @@ nav .nav-links ul li:hover {
   font-size: 16px;
   color: #424242;
   padding: 20px;
+  z-index: 0;
 }
 .friends-list .friends-img img {
   height: 40px;
@@ -366,7 +387,7 @@ nav .nav-links ul li:hover {
 .login-signup-header {
   font-weight: 600;
   font-size: 30px;
-  color: #ef7917;
+  color: #2e81f4;
 }
 .login-form {
   background-color: #fff;
@@ -399,7 +420,7 @@ nav .nav-links ul li:hover {
 .field button {
   width: 100%;
   margin-top: 20px;
-  background: #ef7917;
+  background: #2e81f4;
   border-radius: 2px;
   color: #fff;
   font-size: 20px;
@@ -453,20 +474,21 @@ nav .nav-links ul li:hover {
   outline: none;
 }
 .settings .edit-btn {
-  border: 1px solid #ef7917;
+  border: 1px solid #2e81f4;
   box-sizing: border-box;
-  color: #ef7917;
+  color: #2e81f4;
 }
 .settings .save-btn {
-  background: #ef7917;
+  background: #2e81f4;
   color: #fff;
   border: none;
   padding: 10px 20px;
 }
 .settings .go-back {
-  color: #ef7917;
-  margin-top: 7px;
-  font-size: 13px;
+  color: gray;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bolder;
 }
 .settings .go-back:hover {
   cursor: pointer;
@@ -491,13 +513,15 @@ nav .nav-links ul li:hover {
   background: white;
   border: 1px solid #e0e0e0;
   box-sizing: border-box;
-  border-radius: 4px;
+  border-radius: 15px;
+  box-shadow: 0px 5px 7px rgba(0,0,0,0.2);
 }
 .create-post > div {
   padding: 10px;
   border-top: 1px solid #d0d0d0;
   display: flex;
   justify-content: flex-end;
+  
 }
 .create-post textarea {
   height: 90px;
@@ -507,18 +531,20 @@ nav .nav-links ul li:hover {
   font-size: 15px;
   border: none;
   resize: none;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 #add-post-btn {
   width: 112px;
   height: 42px;
   left: 111.5px;
   top: 0px;
-  background: #ef7917;
+  /* background: #ef7917; */
   border-radius: 3px;
   color: #fff;
   font-size: 16px;
+  border:transparent;
 }
 #add-post-btn:focus,
 .create-post textarea:focus {
@@ -527,3 +553,152 @@ nav .nav-links ul li:hover {
 #add-post-btn:hover {
   cursor: pointer;
 }
+
+
+/* NEW CSS */
+
+.header{
+  display: flex;
+  padding:15px 20px;
+  justify-content: space-between;
+  position: sticky;
+  background-color: white;
+  z-index: 100;
+  top:0;
+  box-shadow: 0px 5px 8px -9px rgba(0,0,0,0.75);
+
+  
+}
+
+
+.header__left{
+  display: flex;
+  justify-content: space-evenly;
+  min-width: 80px;
+}
+
+.header__input{
+  display: flex;
+  align-items: center;
+  background-color: #eff2f5;
+  padding: 10px;
+  margin-left: 20px;
+  border-radius: 999px;
+  width: 500px;
+  min-width: 30px;
+  margin-right: 50px;
+}
+
+.header__middle{
+  display: flex;
+  flex:1;
+  justify-content: center;
+}
+
+.header__option > .MuiSvgIcon-root{
+  color:gray;
+}
+
+.header__option:hover > .MuiSvgIcon-root{
+  color:#2e81f4;
+}
+
+.header__option{
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  cursor: pointer;
+}
+
+
+.header__option:hover{
+  background-color: #eff2f5;
+  border-radius: 10px;
+  align-items: center;
+  padding: 0 30px;
+  border-bottom: none;
+}
+
+.header__info{
+  display: flex;
+  align-items: center;
+  
+}
+
+.header__info > div{
+  display: flex;
+  align-items: center;
+  
+  
+}
+
+/* .header__info > div{
+  margin-left: 10px;
+
+} */
+
+.header__right{
+  display: flex;
+  
+}
+
+.header__option--active > .MuiSvgIcon-root{
+  color:#2e81f4
+  
+}
+
+.header__option--active{
+  border-bottom: 4px solid #2e81f4;
+}
+
+.sidebarRow{
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.sidebarRow:hover{
+  background-color: lightgray;
+  border-radius: 10px;
+}
+
+.app_body{
+  display: flex;
+}
+
+
+
+.feed{
+  flex:1;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  
+  
+}
+
+.sidebar{
+  flex:0.33;
+  padding: 25px 10px;
+}
+
+.post{
+  width: 100%;
+  margin-top:15px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0px 5px 7px rgba(0,0,0,0.2);
+  
+}
+
+
+.wrapper{
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 900px;
+}
+
+

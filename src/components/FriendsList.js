@@ -11,12 +11,13 @@ const FriendsList = (props) => {
         <div className="no-friends">No friends found!</div>
       )}
 
-    
+     <div className="sidebar">
       {props.friends &&
         props.friends.map((friend) => (
           <FriendsListItem name={friend.name} id={friend._id} key={friend._id} />
           
         ))}
+      </div>
     </div>
   );
 };

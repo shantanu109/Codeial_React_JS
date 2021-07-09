@@ -38,7 +38,7 @@ class CreatePost extends Component {
           onChange={this.handleChange}
         />
         <div>
-          <button id="add-post-btn" onClick={this.handleOnClick}>
+          <button id="add-post-btn" onClick={this.handleOnClick} style={{backgroundColor:'#2e81f4'}}>
             Add Post
           </button>
         </div>

@@ -6,11 +6,13 @@ import {connect} from 'react-redux';
 class Chat extends Component {
   constructor(props) {
     super(props);
-
-
+    
     this.state = {
       messages: [], //array of objects =>  {content: 'Some message' , self: true}
       typedMessage: '',
+      check:false,
+      heightToBe:400
+      
     };
 
     this.socket = io.connect('http://localhost:5000/');
@@ -73,20 +75,54 @@ class Chat extends Component {
       }
 
   }
+  minimize = () => {
+
+    const {check} = this.state;
+
+    if (check==false){
+      this.setState({
+        heightToBe:50,
+        check:true,
+      })
+    }
+
+    else if (check==true){
+      this.setState({
+        heightToBe:400,
+        check:false,
+      })
+
+    }
+    
+    
+
+}
+
   render() {
-    const { typedMessage, messages } = this.state;
+    const { typedMessage, messages,heightToBe,check } = this.state;
 
     return (
-      <div className="chat-container">
+      
+      <div className="chat-container" style={{height:`${heightToBe}px`}} >
+        
         <div className="chat-header">
           Chat
-          <img
-            src="https://image.flaticon.com/icons/png/512/786/786465.png"
+          {check? (<img
+            src="https://image.flaticon.com/icons/png/512/271/271239.png"
             alt=""
-            height={22}
+            height={20}
             id="icon-chat"
+            onClick={this.minimize}
             
-          />
+          />):(<img
+            src="https://image.flaticon.com/icons/png/512/1828/1828778.png"
+            alt=""
+            height={20}
+            id="icon-chat"
+            onClick={this.minimize}
+            
+          />)}
+          
         </div>
         <div className="chat-messages">
           {messages.map((message) => (
@@ -103,6 +139,7 @@ class Chat extends Component {
         </div>
         <div className="chat-footer">
           <input
+            placeholder="Aa"
             type="text"
             value={typedMessage}
             onChange={(e) => this.setState({ typedMessage: e.target.value })}

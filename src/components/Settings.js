@@ -97,7 +97,7 @@ class Settings extends Component {
         </div>
 
         {editMode && <div className="go-back" onClick={() => this.handleChange('editMode',false)}>
-            Go back</div>}
+            Go Back</div>}
 
         <div style={{color:'red', marginTop:'20px',fontWeight:'bolder'}}>Donot change your information if you have logged in from Google</div>
       </div>

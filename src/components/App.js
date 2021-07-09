@@ -91,7 +91,7 @@ class App extends React.Component {
     const {user} = this.props.auth
     return (
       <Router>
-        <div>
+        <div className="wrapper">
           <Navbar />
           <Switch>
             <Route
