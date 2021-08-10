@@ -1,4 +1,4 @@
-const API_ROOT = 'http://localhost:800/api/v1';
+const API_ROOT = 'http://3.235.156.161/api/v1';
 
 
 export const APIURLS = {
