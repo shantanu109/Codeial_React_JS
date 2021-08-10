@@ -14,8 +14,8 @@ class Chat extends Component {
       heightToBe:400
       
     };
-    const PORT = process.env.PORT || 3000;
-    this.socket = io.connect(PORT);
+
+    this.socket = io.connect('https://shaan-media.herokuapp.com:5000/');
     this.userEmail = props.user.email;
 
     
