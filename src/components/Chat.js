@@ -15,7 +15,7 @@ class Chat extends Component {
       
     };
 
-    this.socket = io.listen(process.env.PORT || 3000);
+    this.socket = io(process.env.PORT || 3000);
     this.userEmail = props.user.email;
 
     
