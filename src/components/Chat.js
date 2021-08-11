@@ -15,28 +15,10 @@ class Chat extends Component {
       
     };
 
-    // this.socket = io.connect('https://shaancode.com:5000/');
+    this.socket = io.connect('http://3.235.156.161:5000/');
     this.userEmail = props.user.email;
-    var PORT = process.env.PORT || 5000;
-    var express = require('express');
-    var app = express();
-    var http = require('http');
-    var server = http.Server(app);
 
-    server.listen(PORT,function(){
-      console.log('chat server running')
-    })
-
-    var io = require('socket.io')(server);
-
-    io.on('connection',function(socket){
-      socket.on('message',function(message){
-        io.emit('message',msg)
-      })
-    })
-
-    this.socket = io();
-
+    
     this.setupConnections();
     
     
