@@ -15,7 +15,7 @@ class Chat extends Component {
       
     };
 
-    this.socket = io.connect('https://shaancode.com:5000/');
+    this.socket = io.connect('http://shaancode.com:5000/');
     this.userEmail = props.user.email;
 
     
