@@ -14,8 +14,8 @@ class Chat extends Component {
       heightToBe:400
       
     };
-
-    this.socket = io.connect('http://54.237.158.65:5000');
+    const PORT = process.env.PORT || 3000;
+    this.socket = io.connect(PORT);
     this.userEmail = props.user.email;
 
     
