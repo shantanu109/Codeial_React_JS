@@ -15,9 +15,7 @@ class Chat extends Component {
       
     };
 
-    io.listen(process.env.PORT || 3000);
-
-    this.socket = io('https://shaan-media.herokuapp.com/');
+    this.socket = io.listen(process.env.PORT || 3000);
     this.userEmail = props.user.email;
 
     
