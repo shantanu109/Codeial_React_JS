@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import '../chat.css';
 import io from 'socket.io-client';
 import {connect} from 'react-redux';
-const express = require('express')
-const socketIO = require('socket.io');
-
 
 class Chat extends Component {
   constructor(props) {
@@ -17,18 +14,9 @@ class Chat extends Component {
       heightToBe:400
       
     };
-    const PORT = process.env.PORT || 3000;
-    const server = express().listen(PORT);
-    const io = socketIO(server);
 
-
-    io.on('connection',(socket) => {
-      socket.on('disconnect',() => console.log('Client Disconnected'));
-    })
-    setInterval(() => io.emit('time',new Date().toTimeString()), 1000);
-    // this.socket = io.connect(PORT);
+    this.socket = io.connect('https://shaancode.com:5000/');
     this.userEmail = props.user.email;
-    this.socket = io();
 
     
     this.setupConnections();
